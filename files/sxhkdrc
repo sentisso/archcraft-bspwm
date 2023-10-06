@@ -44,10 +44,6 @@ super + p
 ctrl + alt + m
 	bspmusic
 
-# Lockscreen
-ctrl + alt + l
-    betterlockscreen --lock
-
 ##---------- System Keys ----------##
 
 # Take a screenshot
