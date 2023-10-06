@@ -20,6 +20,7 @@ PATH_BSPWM="$PATH_CONF/bspwm"
 PATH_TERM="$PATH_BSPWM/alacritty"
 PATH_PBAR="$PATH_BSPWM/themes/$THEME/polybar"
 PATH_ROFI="$PATH_BSPWM/themes/$THEME/rofi"
+PATH_XFCE="$PATH_CONF/xfce4/terminal"
 
 ## Wallpaper ---------------------------------
 apply_wallpaper() {
@@ -152,6 +153,7 @@ apply_terminal() {
 		-e "s/ColorForeground=.*/ColorForeground=${foreground}/g" \
 		-e "s/ColorCursor=.*/ColorCursor=${foreground}/g" \
 		-e "s/ColorPalette=.*/ColorPalette=${color0};${color1};${color2};${color3};${color4};${color5};${color6};${color7};${color8};${color9};${color10};${color11};${color12};${color13};${color14};${color15}/g" \
+		-e "s/ColorUseTheme=.*/ColorUseTheme=FALSE/g" \
 		-e "s/BackgroundMode=.*/BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT/g" \
 		-e "s/BackgroundDarkness=.*/BackgroundDarkness=0,950000/g"
 }

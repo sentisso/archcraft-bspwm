@@ -1,4 +1,4 @@
-## Copyright (C) 2020-2023 Aditya Shakya <adi1090x@gmail.com>
+## Copyright (C) 2020-2023 sentisso
 ##
 ## Keybindings config for Archcraft's BSPWM
 
@@ -95,6 +95,9 @@ super + {_,shift + }c
 # kill window
 alt + F4
     xkill
+
+alt + tab
+    bspc last -f
 	
 # Reload Keybindings
 super + Escape
