@@ -3,3 +3,4 @@
 *.pkg.tar.zst
 cleanup.sh
 push.sh
+.idea/

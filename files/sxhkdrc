@@ -32,13 +32,9 @@ super + {b,m,n,r,s,t,w,x}
 
 ##---------- Applications ----------##
 
-# Launch Apps
-super + shift + {f,w,e}
-	{thunar,firefox,geany}
-
 # Terminal Apps
-ctrl + alt + {v,r,h}
-	alacritty --config-file ~/.config/bspwm/alacritty/alacritty.yml -e {vim,ranger,htop}
+ctrl + alt + t
+	xfce4-terminal
 
 # Color Picker
 super + p
@@ -101,12 +97,8 @@ super + {_,shift + }c
 	bspc node -{c,k}
 
 # kill window
-ctrl + alt + Escape
+alt + F4
     xkill
-
-# Quit/Restart bspwm
-ctrl + shift + {q,r}
-	bspc {quit,wm -r}
 	
 # Reload Keybindings
 super + Escape
@@ -137,7 +129,7 @@ super + control + {Left,Right,Up,Down}
 	bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
 	
 # Shrinking windows
-super + alt + {Left,Right,Up,Down}
+super + alt + {Right,Left,Down,Up}
 	bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
 
 # Split horizontal, vertical or cancel

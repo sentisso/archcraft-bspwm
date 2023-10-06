@@ -144,6 +144,16 @@ apply_terminal() {
 		    cyan:    '${color14}'
 		    white:   '${color15}'
 	_EOF_
+
+	# xfce terminal : fonts & colors
+	sed -i ${PATH_XFCE}/terminalrc \
+		-e "s/FontName=.*/FontName=$terminal_font_name $terminal_font_size/g" \
+		-e "s/ColorBackground=.*/ColorBackground=${background}/g" \
+		-e "s/ColorForeground=.*/ColorForeground=${foreground}/g" \
+		-e "s/ColorCursor=.*/ColorCursor=${foreground}/g" \
+		-e "s/ColorPalette=.*/ColorPalette=${color0};${color1};${color2};${color3};${color4};${color5};${color6};${color7};${color8};${color9};${color10};${color11};${color12};${color13};${color14};${color15}/g" \
+		-e "s/BackgroundMode=.*/BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT/g" \
+		-e "s/BackgroundDarkness=.*/BackgroundDarkness=0,950000/g"
 }
 
 # Geany -------------------------------------
@@ -180,6 +190,13 @@ apply_appearance() {
 	if [[ -f "$HOME"/.icons/default/index.theme ]]; then
 		sed -i -e "s/Inherits=.*/Inherits=$cursor_theme/g" "$HOME"/.icons/default/index.theme
 	fi	
+}
+
+# Conky -------------------------------------
+apply_conky() {
+	cp "${PATH_CONKY}" "${PATH_CONF}/conky/"
+	pkill conky
+	conky --daemonize
 }
 
 # Dunst -------------------------------------
@@ -274,6 +291,7 @@ apply_netmenu
 apply_terminal
 apply_geany
 apply_appearance
+apply_conky
 apply_dunst
 apply_compositor
 apply_bspwm
