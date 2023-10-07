@@ -10,4 +10,8 @@ if [[ `pidof dunst` ]]; then
 	pkill dunst
 fi
 
+if [[ `pidof xfce4-notifyd` ]]; then
+    pkill xfce4-notifyd
+fi
+
 dunst -config "$DIR"/dunstrc &

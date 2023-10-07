@@ -79,8 +79,8 @@ XF86Audio{Mute,MicMute}
 	bspvolume{ --toggle, --toggle-mic}
 	
 # Music control
-XF86Audio{Next,Prev,Play,Stop}
-	mpc {next,prev,toggle,stop}
+XF86Audio{Next,Prev,Play,Pause,Stop}
+	playerctl {next,prev,play-pause,play-pause,stop}
 
 ##---------- Bspwm ----------##
 
