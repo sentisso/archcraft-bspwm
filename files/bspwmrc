@@ -127,7 +127,7 @@ bspc rule -a stalonetray state=floating manage=off
 ## Autostart -------------------------------------------------#
 
 # Kill if already running
-killall -9 xsettingsd sxhkd dunst ksuperkey xfce4-power-manager bspc
+killall -9 xsettingsd conky sxhkd dunst ksuperkey xfce4-power-manager bspc aw-qt aw-server
 
 # Lauch xsettingsd daemon
 xsettingsd --config="$BSPDIR"/xsettingsd &
@@ -147,11 +147,17 @@ ksuperkey -e 'Super_R=Alt_L|F1' &
 # Enable power management
 xfce4-power-manager &
 
+## xfce4-settings daemon
+xfsettingsd &
+
 # Fix cursor
 xsetroot -cursor_name left_ptr
 
 # Restore wallpaper
 bash ~/.fehbg
+
+# Start conky
+conky --daemonize --quiet
 
 # Start mpd
 exec mpd &
@@ -162,6 +168,8 @@ bspcomp
 bspdunst
 bspfloat &
 
-## Welcome-App-Run-Once
-archcraft-welcome &
-sed -i -e '/## Welcome-App-Run-Once/Q' "$HOME"/.config/bspwm/bspwmrc
+## Enable touchpad while typing
+xinput set-prop 13 319 0
+
+## Start activitywatch
+sleep 5 && aw-qt &
