@@ -10,7 +10,7 @@ license=('GPL3')
 makedepends=()
 depends=('bspwm' 'sxhkd' 'pastel' 'python-pywal'
 		'alacritty' 'thunar' 'geany'
-		'rofi' 'polybar' 'dunst'
+		'rofi' 'polybar' 'dunst' 'conky'
 		'mpd' 'mpc'
 		'maim' 'xclip' 'viewnior' 'feh'
 		'ksuperkey' 

@@ -21,10 +21,11 @@ PATH_TERM="$PATH_BSPWM/alacritty"
 PATH_PBAR="$PATH_BSPWM/themes/$THEME/polybar"
 PATH_ROFI="$PATH_BSPWM/themes/$THEME/rofi"
 PATH_XFCE="$PATH_CONF/xfce4/terminal"
+PATH_CONKY="$PATH_BSPWM/themes/$THEME/conky"
 
 ## Wallpaper ---------------------------------
 apply_wallpaper() {
-	feh --bg-fill "$wallpaper"
+	feh --bg-center --image-bg black "$wallpaper"
 }
 
 ## Polybar -----------------------------------
@@ -39,7 +40,7 @@ apply_polybar() {
 	cat > ${PATH_PBAR}/colors.ini <<- EOF
 		[color]
 		
-		BACKGROUND = ${background}
+		BACKGROUND = #000000
 		FOREGROUND = ${foreground}
 		ALTBACKGROUND = ${altbackground}
 		ALTFOREGROUND = ${altforeground}
@@ -194,13 +195,6 @@ apply_appearance() {
 	fi	
 }
 
-# Conky -------------------------------------
-apply_conky() {
-	cp "${PATH_CONKY}" "${PATH_CONF}/conky/"
-	pkill conky
-	conky --daemonize
-}
-
 # Dunst -------------------------------------
 apply_dunst() {
 	# modify dunst config
@@ -283,6 +277,13 @@ notify_user() {
 	dunstify -u normal -h string:x-dunst-stack-tag:applytheme -i /usr/share/archcraft/icons/dunst/themes.png "Applying Style : $THEME"
 }
 
+# Conky -------------------------------------
+apply_conky() {
+	cp -r "${PATH_CONKY}" "${PATH_CONF}"
+	pkill conky
+	conky --daemonize
+}
+
 ## Execute Script ---------------------------
 notify_user
 create_file
@@ -293,7 +294,7 @@ apply_netmenu
 apply_terminal
 apply_geany
 apply_appearance
-apply_conky
 apply_dunst
 apply_compositor
 apply_bspwm
+apply_conky

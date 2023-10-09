@@ -5,7 +5,7 @@
 # ------------------------------------------------------------------------------
 
 # Colors
-background='#1E2128'
+background='#0d1117'
 foreground='#B9BDC4'
 color0='#3B4252'
 color1='#BF616A'
@@ -33,7 +33,7 @@ wdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 wallpaper="$wdir/wallpaper"
 
 # Polybar
-polybar_font='Iosevka Nerd Font:size=10;3'
+polybar_font='FiraCode Nerd Font:size=9;3'
 
 # Rofi
 rofi_font='Iosevka 10'
