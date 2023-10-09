@@ -46,22 +46,22 @@ apply_polybar() {
 		ALTFOREGROUND = ${altforeground}
 		ACCENT = ${accent}
 		
-		BLACK = ${color0}
-		RED = ${color1}
-		GREEN = ${color2}
-		YELLOW = ${color3}
-		BLUE = ${color4}
-		MAGENTA = ${color5}
-		CYAN = ${color6}
-		WHITE = ${color7}
-		ALTBLACK = ${color8}
-		ALTRED = ${color9}
-		ALTGREEN = ${color10}
-		ALTYELLOW = ${color11}
-		ALTBLUE = ${color12}
-		ALTMAGENTA = ${color13}
-		ALTCYAN = ${color14}
-		ALTWHITE = ${color15}
+		BLACK = ${color_black}
+		RED = ${color_red}
+		GREEN = ${color_green}
+		YELLOW = ${color_yellow}
+		BLUE = ${color_blue}
+		MAGENTA = ${color_magenta}
+		CYAN = ${color_cyan}
+		WHITE = ${color_white}
+		ALTBLACK = ${altcolor_black}
+		ALTRED = ${altcolor_red}
+		ALTGREEN = ${altcolor_green}
+		ALTYELLOW = ${altcolor_yellow}
+		ALTBLUE = ${altcolor_blue}
+		ALTMAGENTA = ${altcolor_magenta}
+		ALTCYAN = ${altcolor_cyan}
+		ALTWHITE = ${altcolor_white}
 	EOF
 }
 
@@ -90,8 +90,8 @@ apply_rofi() {
 		    background-alt: ${altbackground};
 		    foreground:     ${foreground};
 		    selected:       ${accent};
-		    active:         ${color2};
-		    urgent:         ${color1};
+		    active:         ${color_green};
+		    urgent:         ${color_red};
 		}
 	EOF
 
@@ -126,25 +126,25 @@ apply_terminal() {
 
 		  # Normal colors
 		  normal:
-		    black:   '${color0}'
-		    red:     '${color1}'
-		    green:   '${color2}'
-		    yellow:  '${color3}'
-		    blue:    '${color4}'
-		    magenta: '${color5}'
-		    cyan:    '${color6}'
-		    white:   '${color7}'
+		    black:   '${color_black}'
+		    red:     '${color_red}'
+		    green:   '${color_green}'
+		    yellow:  '${color_yellow}'
+		    blue:    '${color_blue}'
+		    magenta: '${color_magenta}'
+		    cyan:    '${color_cyan}'
+		    white:   '${color_white}'
 
 		  # Bright colors
 		  bright:
-		    black:   '${color8}'
-		    red:     '${color9}'
-		    green:   '${color10}'
-		    yellow:  '${color11}'
-		    blue:    '${color12}'
-		    magenta: '${color13}'
-		    cyan:    '${color14}'
-		    white:   '${color15}'
+		    black:   '${altcolor_black}'
+		    red:     '${altcolor_red}'
+		    green:   '${altcolor_green}'
+		    yellow:  '${altcolor_yellow}'
+		    blue:    '${altcolor_blue}'
+		    magenta: '${altcolor_magenta}'
+		    cyan:    '${altcolor_cyan}'
+		    white:   '${altcolor_white}'
 	_EOF_
 
 	# xfce terminal : fonts & colors
@@ -153,7 +153,7 @@ apply_terminal() {
 		-e "s/ColorBackground=.*/ColorBackground=${background}/g" \
 		-e "s/ColorForeground=.*/ColorForeground=${foreground}/g" \
 		-e "s/ColorCursor=.*/ColorCursor=${foreground}/g" \
-		-e "s/ColorPalette=.*/ColorPalette=${color0};${color1};${color2};${color3};${color4};${color5};${color6};${color7};${color8};${color9};${color10};${color11};${color12};${color13};${color14};${color15}/g" \
+		-e "s/ColorPalette=.*/ColorPalette=${color_black};${color_red};${color_green};${color_yellow};${color_blue};${color_magenta};${color_cyan};${color_white};${altcolor_black};${altcolor_red};${altcolor_green};${altcolor_yellow};${altcolor_blue};${altcolor_magenta};${altcolor_cyan};${altcolor_white}/g" \
 		-e "s/ColorUseTheme=.*/ColorUseTheme=FALSE/g" \
 		-e "s/BackgroundMode=.*/BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT/g" \
 		-e "s/BackgroundDarkness=.*/BackgroundDarkness=0,950000/g"
@@ -226,8 +226,8 @@ apply_dunst() {
 		[urgency_critical]
 		timeout = 0
 		background = "${background}"
-		foreground = "${color1}"
-		frame_color = "${color1}"
+		foreground = "${color_red}"
+		frame_color = "${color_red}"
 	_EOF_
 }
 
