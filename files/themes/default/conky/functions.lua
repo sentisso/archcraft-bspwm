@@ -55,7 +55,6 @@ function conky_get_lang()
     return lang
 end
 
-connected_network_device = nil
 network_connection = nil
 function conky_get_connected_network_device()
     if not network_connection == nil then
@@ -73,32 +72,14 @@ function conky_get_connected_network_device()
 
     if wlan_state == "connected" then
         network_connection = string.format("WiFi connected: %s", wlan_connection)
-        connected_network_device = wlan_device
     elseif eth_state == "connected" then
         network_connection = string.format("Ethernet connected: %s", eth_connection)
-        connected_network_device = eth_device
     else
         network_connection = "Disconnected"
         connected_network_device = nil
     end
 
     return network_connection
-end
-
-function conky_get_upspeedgraph()
-    if connected_network_device == nil then
-        return ""
-    end
-
-    return conky_parse("${upspeedgraph "..connected_network_device.." 12,120 06E9F8 2104FA}")
-end
-
-function conky_get_downspeedgraph()
-    if connected_network_device == nil then
-        return ""
-    end
-
-    return conky_parse("${downspeedgraph "..connected_network_device.." 12,120 FFFF00 DD3A21}")
 end
 
 cpu_name = nil
