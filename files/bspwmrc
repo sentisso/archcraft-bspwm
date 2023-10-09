@@ -85,7 +85,7 @@ for i in ${browsers[@]}; do
    bspc rule -a $i desktop='^2' follow=on focus=on; done
 
 ## 4 > communication (always open communication apps on workspace-4)
-declare -a comm=(Thunderbird TelegramDesktop Hexchat discord teams)
+declare -a comm=(Thunderbird TelegramDesktop Hexchat discord teams Slack)
 for i in ${comm[@]}; do
    bspc rule -a $i desktop='^4' follow=on focus=on; done
 
