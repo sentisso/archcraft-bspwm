@@ -20,10 +20,12 @@ PATH_BSPWM="$PATH_CONF/bspwm"
 PATH_TERM="$PATH_BSPWM/alacritty"
 PATH_PBAR="$PATH_BSPWM/themes/$THEME/polybar"
 PATH_ROFI="$PATH_BSPWM/themes/$THEME/rofi"
+PATH_XFCE="$PATH_CONF/xfce4/terminal"
+PATH_CONKY="$PATH_BSPWM/themes/$THEME/conky"
 
 ## Wallpaper ---------------------------------
 apply_wallpaper() {
-	feh --bg-fill "$wallpaper"
+	feh --bg-center --image-bg black "$wallpaper"
 }
 
 ## Polybar -----------------------------------
@@ -38,28 +40,28 @@ apply_polybar() {
 	cat > ${PATH_PBAR}/colors.ini <<- EOF
 		[color]
 		
-		BACKGROUND = ${background}
+		BACKGROUND = #000000
 		FOREGROUND = ${foreground}
 		ALTBACKGROUND = ${altbackground}
 		ALTFOREGROUND = ${altforeground}
 		ACCENT = ${accent}
 		
-		BLACK = ${color0}
-		RED = ${color1}
-		GREEN = ${color2}
-		YELLOW = ${color3}
-		BLUE = ${color4}
-		MAGENTA = ${color5}
-		CYAN = ${color6}
-		WHITE = ${color7}
-		ALTBLACK = ${color8}
-		ALTRED = ${color9}
-		ALTGREEN = ${color10}
-		ALTYELLOW = ${color11}
-		ALTBLUE = ${color12}
-		ALTMAGENTA = ${color13}
-		ALTCYAN = ${color14}
-		ALTWHITE = ${color15}
+		BLACK = ${color_black}
+		RED = ${color_red}
+		GREEN = ${color_green}
+		YELLOW = ${color_yellow}
+		BLUE = ${color_blue}
+		MAGENTA = ${color_magenta}
+		CYAN = ${color_cyan}
+		WHITE = ${color_white}
+		ALTBLACK = ${altcolor_black}
+		ALTRED = ${altcolor_red}
+		ALTGREEN = ${altcolor_green}
+		ALTYELLOW = ${altcolor_yellow}
+		ALTBLUE = ${altcolor_blue}
+		ALTMAGENTA = ${altcolor_magenta}
+		ALTCYAN = ${altcolor_cyan}
+		ALTWHITE = ${altcolor_white}
 	EOF
 }
 
@@ -88,8 +90,8 @@ apply_rofi() {
 		    background-alt: ${altbackground};
 		    foreground:     ${foreground};
 		    selected:       ${accent};
-		    active:         ${color2};
-		    urgent:         ${color1};
+		    active:         ${color_green};
+		    urgent:         ${color_red};
 		}
 	EOF
 
@@ -124,26 +126,37 @@ apply_terminal() {
 
 		  # Normal colors
 		  normal:
-		    black:   '${color0}'
-		    red:     '${color1}'
-		    green:   '${color2}'
-		    yellow:  '${color3}'
-		    blue:    '${color4}'
-		    magenta: '${color5}'
-		    cyan:    '${color6}'
-		    white:   '${color7}'
+		    black:   '${color_black}'
+		    red:     '${color_red}'
+		    green:   '${color_green}'
+		    yellow:  '${color_yellow}'
+		    blue:    '${color_blue}'
+		    magenta: '${color_magenta}'
+		    cyan:    '${color_cyan}'
+		    white:   '${color_white}'
 
 		  # Bright colors
 		  bright:
-		    black:   '${color8}'
-		    red:     '${color9}'
-		    green:   '${color10}'
-		    yellow:  '${color11}'
-		    blue:    '${color12}'
-		    magenta: '${color13}'
-		    cyan:    '${color14}'
-		    white:   '${color15}'
+		    black:   '${altcolor_black}'
+		    red:     '${altcolor_red}'
+		    green:   '${altcolor_green}'
+		    yellow:  '${altcolor_yellow}'
+		    blue:    '${altcolor_blue}'
+		    magenta: '${altcolor_magenta}'
+		    cyan:    '${altcolor_cyan}'
+		    white:   '${altcolor_white}'
 	_EOF_
+
+	# xfce terminal : fonts & colors
+	sed -i ${PATH_XFCE}/terminalrc \
+		-e "s/FontName=.*/FontName=$terminal_font_name $terminal_font_size/g" \
+		-e "s/ColorBackground=.*/ColorBackground=${background}/g" \
+		-e "s/ColorForeground=.*/ColorForeground=${foreground}/g" \
+		-e "s/ColorCursor=.*/ColorCursor=${foreground}/g" \
+		-e "s/ColorPalette=.*/ColorPalette=${color_black};${color_red};${color_green};${color_yellow};${color_blue};${color_magenta};${color_cyan};${color_white};${altcolor_black};${altcolor_red};${altcolor_green};${altcolor_yellow};${altcolor_blue};${altcolor_magenta};${altcolor_cyan};${altcolor_white}/g" \
+		-e "s/ColorUseTheme=.*/ColorUseTheme=FALSE/g" \
+		-e "s/BackgroundMode=.*/BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT/g" \
+		-e "s/BackgroundDarkness=.*/BackgroundDarkness=0,950000/g"
 }
 
 # Geany -------------------------------------
@@ -213,8 +226,8 @@ apply_dunst() {
 		[urgency_critical]
 		timeout = 0
 		background = "${background}"
-		foreground = "${color1}"
-		frame_color = "${color1}"
+		foreground = "${color_red}"
+		frame_color = "${color_red}"
 	_EOF_
 }
 
@@ -264,6 +277,13 @@ notify_user() {
 	dunstify -u normal -h string:x-dunst-stack-tag:applytheme -i /usr/share/archcraft/icons/dunst/themes.png "Applying Style : $THEME"
 }
 
+# Conky -------------------------------------
+apply_conky() {
+	cp -r "${PATH_CONKY}" "${PATH_CONF}"
+	pkill conky
+	conky --daemonize
+}
+
 ## Execute Script ---------------------------
 notify_user
 create_file
@@ -277,3 +297,4 @@ apply_appearance
 apply_dunst
 apply_compositor
 apply_bspwm
+apply_conky

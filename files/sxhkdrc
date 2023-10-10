@@ -1,4 +1,4 @@
-## Copyright (C) 2020-2023 Aditya Shakya <adi1090x@gmail.com>
+## Copyright (C) 2020-2023 sentisso
 ##
 ## Keybindings config for Archcraft's BSPWM
 
@@ -32,13 +32,9 @@ super + {b,m,n,r,s,t,w,x}
 
 ##---------- Applications ----------##
 
-# Launch Apps
-super + shift + {f,w,e}
-	{thunar,firefox,geany}
-
 # Terminal Apps
-ctrl + alt + {v,r,h}
-	alacritty --config-file ~/.config/bspwm/alacritty/alacritty.yml -e {vim,ranger,htop}
+ctrl + alt + t
+	alacritty --config-file ~/.config/bspwm/alacritty/alacritty.yml
 
 # Color Picker
 super + p
@@ -47,10 +43,6 @@ super + p
 # Music
 ctrl + alt + m
 	bspmusic
-
-# Lockscreen
-ctrl + alt + l
-    betterlockscreen --lock
 
 ##---------- System Keys ----------##
 
@@ -87,8 +79,8 @@ XF86Audio{Mute,MicMute}
 	bspvolume{ --toggle, --toggle-mic}
 	
 # Music control
-XF86Audio{Next,Prev,Play,Stop}
-	mpc {next,prev,toggle,stop}
+XF86Audio{Next,Prev,Play,Pause,Stop}
+	playerctl {next,prev,play-pause,play-pause,stop}
 
 ##---------- Bspwm ----------##
 
@@ -101,12 +93,11 @@ super + {_,shift + }c
 	bspc node -{c,k}
 
 # kill window
-ctrl + alt + Escape
+alt + F4
     xkill
 
-# Quit/Restart bspwm
-ctrl + shift + {q,r}
-	bspc {quit,wm -r}
+alt + tab
+    bspc last -f
 	
 # Reload Keybindings
 super + Escape
@@ -137,7 +128,7 @@ super + control + {Left,Right,Up,Down}
 	bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
 	
 # Shrinking windows
-super + alt + {Left,Right,Up,Down}
+super + alt + {Right,Left,Down,Up}
 	bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
 
 # Split horizontal, vertical or cancel

@@ -19,7 +19,7 @@ trap exit_on_signal_SIGTERM SIGTERM
 ## Build packages
 build_pkg () {
 	echo -e "\nBuilding Package - \n"
-	makepkg -sc
+	makepkg -scf
 	
 	RDIR='../../pkgs/x86_64'
 	if [[ -d "$RDIR" ]]; then

@@ -1,31 +1,31 @@
 # ------------------------------------------------------------------------------
-# Copyright (C) 2020-2023 Aditya Shakya <adi1090x@gmail.com>
+# Copyright (C) 2020-2023 sentisso
 #
 # Default Theme
 # ------------------------------------------------------------------------------
 
 # Colors
-background='#2E3440'
-foreground='#D8DEE9'
-color0='#3B4252'
-color1='#BF616A'
-color2='#A3BE8C'
-color3='#EBCB8B'
-color4='#81A1C1'
-color5='#B48EAD'
-color6='#88C0D0'
-color7='#E5E9F0'
-color8='#4C566A'
-color9='#BF616A'
-color10='#A3BE8C'
-color11='#EBCB8B'
-color12='#81A1C1'
-color13='#B48EAD'
-color14='#8FBCBB'
-color15='#ECEFF4'
+background='#0d1117'
+foreground='#B9BDC4'
+color_black='#3B4252' # color0
+color_red='#E06B74' # color1
+color_green='#98C379' # color2
+color_yellow='#E5C07A' # color3
+color_blue='#13CADA' # color4
+color_magenta='#C778DD' # color5
+color_cyan='#55B6C2' # color6
+color_white='#B9BDC4' # color7
+altcolor_black='#4C566A' # color8
+altcolor_red='#EA757E' # color9
+altcolor_green='#A2CD83' # color10
+altcolor_yellow='#EFCA84' # color11
+altcolor_blue='#13CADA' # color12
+altcolor_magenta='#D282E7' # color13
+altcolor_cyan='#5FC0CC' # color14
+altcolor_white='#B5BCC9' # color15
 
-accent='#81A1C1'
-light_value='0.05'
+accent='#13CADA'
+light_value='0.00'
 dark_value='0.30'
 
 # Wallpaper
@@ -33,7 +33,7 @@ wdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 wallpaper="$wdir/wallpaper"
 
 # Polybar
-polybar_font='Iosevka Nerd Font:size=10;3'
+polybar_font='FiraCode Nerd Font:size=9;3'
 
 # Rofi
 rofi_font='Iosevka 10'
@@ -75,8 +75,8 @@ picom_blur_strength='0'
 # Bspwm
 bspwm_fbc="$accent"
 bspwm_nbc="$background"
-bspwm_abc="$color5"
-bspwm_pfc="$color2"
+bspwm_abc="$color_magenta"
+bspwm_pfc="$color_green"
 bspwm_border='1'
 bspwm_gap='10'
 bspwm_sratio='0.50'

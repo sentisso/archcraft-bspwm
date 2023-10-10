@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## Copyright (C) 2020-2023 Aditya Shakya <adi1090x@gmail.com>
+## Copyright (C) 2020-2023 sentisso
 ##
 ## BSPWM config file for Archcraft
 
@@ -19,24 +19,23 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 ## Current theme ---------------------------------------------#
 
 ## Bspwm colors
-BSPWM_FBC='#81A1C1'
-BSPWM_NBC='#2E3440'
+BSPWM_FBC='#13CADA'
+BSPWM_NBC='#0d1117'
 BSPWM_ABC='#B48EAD'
 BSPWM_PFC='#A3BE8C'
 
 ## Bspwm appearance
 BSPWM_BORDER='1'
-BSPWM_GAP='10'
+BSPWM_GAP='6'
 BSPWM_SRATIO='0.50'
 
 ## Configurations --------------------------------------------#
 
 ## Manage Monitors and Workspaces
-##
-## Default Setup (Set 8 workspaces on each monitor)
-default_workspaces() {
+workspaces() {
+	name=1
 	for monitor in `xrandr -q | grep -w 'connected' | cut -d' ' -f1`; do
-		bspc monitor "$monitor" -d '' '' '' '' '' '' '' ''
+    bspc monitor "$monitor" -d 'code' 'www' 'cmd' 'chat' 'docs' 'play' 'fs' 'sys'
 	done
 }
 
@@ -86,7 +85,7 @@ bspc config borderless_monocle true
 bspc config gapless_monocle true
 bspc config paddingless_monocle true
 bspc config single_monocle false
-bspc config focus_follows_pointer true
+bspc config focus_follows_pointer false
 bspc config presel_feedback true
 
 ## Manage all the unmanaged windows remaining from a previous session.
@@ -94,56 +93,57 @@ bspc wm --adopt-orphans
 
 ## Window rules ----------------------------------------------#
 
-## remove all rules first
+# remove all rules first
 bspc rule -r *:*
 
 ## 1 > terminal (always open terminal on workspace-1)
-bspc rule -a Alacritty desktop='^1' follow=on focus=on
-bspc rule -a Xfce4-terminal desktop='^1' follow=on focus=on
+#bspc rule -a Alacritty desktop='^1' follow=on focus=on
+#bspc rule -a Xfce4-terminal desktop='^1' follow=on focus=on
+
+## 1 > code (always open editors on workspace-1)
+declare -a code=(code-oss jetbrains-webstorm jetbrains-phpstorm jetbrains-clion jetbrains-pycharm jetbrains-idea jetbrains-fleet)
+for i in ${code[@]}; do
+   bspc rule -a $i desktop='^1' follow=on focus=on; done
 
 ## 2 > web (always open web browser on workspace-2)
-bspc rule -a firefox desktop='^2' follow=on focus=on
-bspc rule -a chromium desktop='^2' follow=on focus=on
+declare -a browsers=(Google-chrome Chromium Brave-browser firefoxdeveloperedition)
+for i in ${browsers[@]}; do
+   bspc rule -a $i desktop='^2' follow=on focus=on; done
 
-## 3 > files (always open file manager on workspace-3)
-declare -a files=(Pcmanfm Thunar qBittorrent)
-for i in ${files[@]}; do
-   bspc rule -a $i desktop='^3' follow=on focus=on; done
-
-## 4 > code (always open editors on workspace-4)
-declare -a code=(Geany code-oss)
-for i in ${code[@]}; do
+## 4 > communication (always open communication apps on workspace-4)
+declare -a comm=(Thunderbird TelegramDesktop Hexchat discord teams Slack)
+for i in ${comm[@]}; do
    bspc rule -a $i desktop='^4' follow=on focus=on; done
 
 ## 5 > office and docs (always open office/doc apps on workspace-5)
 declare -a office=(Gucharmap Atril Evince \
 libreoffice-writer libreoffice-calc libreoffice-impress \
-libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice)
+libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice obsidian)
 for i in ${office[@]}; do
    bspc rule -a $i desktop='^5' follow=on focus=on; done
 
-## 6 > communication (always open communication apps on workspace-6)
-declare -a comm=(Thunderbird TelegramDesktop Hexchat)
-for i in ${comm[@]}; do
+## 6 > media (always open media apps on workspace-6)
+declare -a media=(Audacity Music MPlayer Lxmusic Inkscape Gimp-2.10 obs Spotify vlc steam)
+for i in ${media[@]}; do
    bspc rule -a $i desktop='^6' follow=on focus=on; done
 
-## 7 > media (always open media apps on workspace-7)
-declare -a media=(Audacity Music MPlayer Lxmusic Inkscape Gimp-2.10 obs)
-for i in ${media[@]}; do
-   bspc rule -a $i desktop='^7' state=floating follow=on focus=on; done
+## 7 > files (always open file manager on workspace-7)
+declare -a files=(Pcmanfm Thunar qBittorrent)
+for i in ${files[@]}; do
+   bspc rule -a $i desktop='^7' follow=on focus=on; done
 
 ## 8 > system (always open system apps on workspace-8)
 bspc rule -a 'VirtualBox Manager' desktop='^8' follow=on focus=on
 bspc rule -a GParted desktop='^8' follow=on focus=on
 declare -a settings=(Lxappearance Lxtask Lxrandr Arandr \
 System-config-printer.py Pavucontrol Exo-helper-1 \
-Xfce4-power-manager-settings)
+Xfce4-power-manager-settings Blueman-manager rog-control-center)
 for i in ${settings[@]}; do
    bspc rule -a $i desktop='^8' state=floating follow=on focus=on; done
 
 ## Always Floating Apps
-declare -a floating=(alacritty-float Pcmanfm Thunar Onboard Yad 'Firefox:Places' \
-Viewnior feh Nm-connection-editor calamares Calamares)
+declare -a floating=(alacritty-float Pcmanfm Thunar Onboard Yad \
+Viewnior feh Nm-connection-editor)
 for i in ${floating[@]}; do
    bspc rule -a $i state=floating follow=on focus=on; done
 
@@ -153,7 +153,10 @@ bspc rule -a stalonetray state=floating manage=off
 ## Autostart -------------------------------------------------#
 
 # Kill if already running
-killall -9 xsettingsd sxhkd dunst ksuperkey xfce4-power-manager bspc
+killall -9 xsettingsd conky sxhkd dunst ksuperkey xfce4-power-manager bspc aw-qt aw-server
+
+# Start conky
+conky --daemonize --quiet
 
 # Lauch xsettingsd daemon
 xsettingsd --config="$BSPDIR"/xsettingsd &
@@ -173,6 +176,9 @@ ksuperkey -e 'Super_R=Alt_L|F1' &
 # Enable power management
 xfce4-power-manager &
 
+## xfce4-settings daemon
+xfsettingsd &
+
 # Fix cursor
 xsetroot -cursor_name left_ptr
 
@@ -188,6 +194,8 @@ bspcomp
 bspdunst
 bspfloat &
 
-## Welcome-App-Run-Once
-archcraft-welcome &
-sed -i -e '/## Welcome-App-Run-Once/Q' "$HOME"/.config/bspwm/bspwmrc
+## Enable touchpad while typing
+xinput set-prop 13 319 0
+
+## Start activitywatch
+sleep 5 && aw-qt &

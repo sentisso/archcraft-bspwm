@@ -5,11 +5,11 @@ pkgver=5.0
 pkgrel=1
 pkgdesc="Bspwm Configurations for Archcraft"
 arch=('any')
-url="https://github.com/archcraft-os/archcraft-bspwm"
+url="https://github.com/sentisso/archcraft-bspwm"
 license=('GPL3')
 depends=('bspwm' 'sxhkd' 'feh' 'xsettingsd'
 		'pulsemixer' 'light' 'polybar' 'rofi' 'dunst'
-		'pastel' 'python-pywal'
+		'pastel' 'python-pywal' 'conky'
 )
 optdepends=('alacritty: default terminal emulator'
 			'thunar: default file manager'
@@ -52,7 +52,7 @@ package() {
 	cp -r "$srcdir"/alacritty 				"$_wmdir"
 	cp -r "$srcdir"/scripts 				"$_wmdir"
 	cp -r "$srcdir"/themes 					"$_wmdir"
-	
+
 	install -Dm 755 bspwmrc   				"$_wmdir"/bspwmrc
 	install -Dm 644 dunstrc   				"$_wmdir"/dunstrc
 	install -Dm 644 picom.conf   			"$_wmdir"/picom.conf
