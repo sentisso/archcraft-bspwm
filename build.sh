@@ -18,6 +18,8 @@ trap exit_on_signal_SIGTERM SIGTERM
 
 ## Build packages
 build_pkg () {
+  rm -rf *.pkg.tar.zst
+
 	echo -e "\nBuilding Package - \n"
 	makepkg -scf
 	
