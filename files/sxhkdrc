@@ -34,7 +34,7 @@ super + {b,m,n,r,s,t,w,x}
 
 # Terminal Apps
 ctrl + alt + t
-	alacritty --config-file ~/.config/bspwm/alacritty/alacritty.yml
+	alacritty
 
 # Color Picker
 super + p

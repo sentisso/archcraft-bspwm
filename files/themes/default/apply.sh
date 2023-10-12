@@ -147,6 +147,8 @@ apply_terminal() {
 		    white:   '${altcolor_white}'
 	_EOF_
 
+	cp ${PATH_TERM}/alacritty.yml ${PATH_CONF}/alacritty
+
 	# xfce terminal : fonts & colors
 	sed -i ${PATH_XFCE}/terminalrc \
 		-e "s/FontName=.*/FontName=$terminal_font_name $terminal_font_size/g" \
