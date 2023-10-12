@@ -32,9 +32,9 @@ BSPWM_SRATIO='0.50'
 ## Configurations --------------------------------------------#
 
 ## Manage Monitors and Workspaces
-workspaces() {
+default_workspaces() {
   for monitor in `xrandr -q | grep -w 'connected' | cut -d' ' -f1`; do
-    bspc monitor "$monitor" -d 'code' 'www' 'cmd' 'chat' 'docs' 'play' 'fs' 'sys'
+    bspc monitor "$monitor" -d 'code' 'cmd' 'www' 'comm' 'docs' 'play' 'fs' 'sys'
   done
 }
 
