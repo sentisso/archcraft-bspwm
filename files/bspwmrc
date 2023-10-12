@@ -104,10 +104,10 @@ declare -a code=(code-oss jetbrains-webstorm jetbrains-phpstorm jetbrains-clion 
 for i in ${code[@]}; do
   bspc rule -a $i desktop='^1' follow=on focus=on; done
 
-## 2 > web (always open web browser on workspace-2)
+## 3 > web (always open web browser on workspace-3)
 declare -a browsers=(Google-chrome Chromium Brave-browser firefoxdeveloperedition)
 for i in ${browsers[@]}; do
-  bspc rule -a $i desktop='^2' follow=on focus=on; done
+  bspc rule -a $i desktop='^3' follow=on focus=on; done
 
 ## 4 > communication (always open communication apps on workspace-4)
 declare -a comm=(Thunderbird TelegramDesktop Hexchat discord teams Slack)
