@@ -25,18 +25,21 @@ wm_config='bspwm'
 wm_name='Bspwm'
 current_config="$config_dir/$wm_config"
 updated_config="$config_dir/${wm_config}_pacnew_`date +%d-%m-%y`"
+backup_config="$config_dir/${wm_config}_backup_`date +%d-%m-%y`"
 
 ## -----------------------------------
 
 ## Install Config files
 install_wm_config() {
 	echo -e ${Blue}"\n[*] Copying ${BBlue}${wm_name}${Blue} config files into ${BBlue}${config_dir}" ${Color_Off}
+
 	mkdir -p "$current_config"
 	cp -rf "$skel_dir/$wm_config"/* "$current_config"/
 	chown -R ${user_name}:${user_group} "$current_config"
 
 	if [[ -d "$current_config" ]]; then
 		echo -e ${Green}"[*] Configuration files installed successfully!\n" ${Color_Off}
+	  echo -e ${Yellow}"[*] Apply them by executing: ${BYellow}${current_config}/themes/default/apply.sh${Yellow}" ${Color_Off}
 	else
 		echo -e ${Red}"[!] Failed to install configuration files!\n" ${Color_Off}
 	fi
@@ -45,17 +48,28 @@ install_wm_config() {
 ## Update Config files
 update_wm_config() {
 	echo -e ${Blue}"\n[*] Copying latest ${BBlue}${wm_name}${Blue} config files into ${BBlue}${config_dir}" ${Color_Off}
+
 	mkdir -p "$updated_config"
 	cp -rf "$skel_dir/$wm_config"/* "$updated_config"/
 	chown -R ${user_name}:${user_group} "$updated_config"
 
 	if [[ -d "$updated_config" ]]; then
 		echo -e ${Green}"[*] Latest configuration files installed successfully!" ${Color_Off}
-		echo -e ${Yellow}"[+] Latest config files are stored in : ${BYellow}${updated_config}${Yellow}" ${Color_Off}		
+		echo -e ${Yellow}"[+] Latest config files are stored in: ${BYellow}${updated_config}${Yellow}" ${Color_Off}
 		echo -e ${Purple}"[*] To use latest config files, rename ${BPurple}${updated_config}${Purple} to ${BPurple}${current_config}${Purple}\n" ${Color_Off}		
 	else
 		echo -e ${Red}"[!] Failed to install latest configuration files!\n" ${Color_Off}
 	fi
+}
+
+## Backup Config files
+backup_wm_config() {
+	echo -e ${Purple}"\n[*] Creating a backup of your current ${BPurple}${wm_name}${Purple} config..." ${Color_Off}
+
+	mv "$current_config" "$backup_config"
+	chown -R ${user_name}:${user_group} "$backup_config"
+
+	echo -e ${Yellow}"[*] Your previous config files are stored in: ${BYellow}${backup_config}${Yellow}, in case you want to use them." ${Color_Off}
 }
 
 ## -----------------------------------
@@ -68,7 +82,8 @@ run_main() {
 		if [[ ! -d "$current_config"  ]]; then
 			install_wm_config
 		else
-			update_wm_config
+			backup_wm_config
+			install_wm_config
 		fi
 	fi
 }
