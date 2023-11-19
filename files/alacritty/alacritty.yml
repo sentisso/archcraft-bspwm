@@ -33,7 +33,11 @@ window:
   multiplier: 3
 
 ## Background opacity
-  opacity: 1.0
+  opacity: 0.95
+
+key_bindings:
+  - { key: PageUp, action: ScrollLineUp }
+  - { key: PageDown, action: ScrollLineDown }
 
 ## Cursor
 cursor:

@@ -110,19 +110,19 @@ for i in ${browsers[@]}; do
   bspc rule -a $i desktop='^3' follow=on focus=on; done
 
 ## 4 > communication (always open communication apps on workspace-4)
-declare -a comm=(Thunderbird TelegramDesktop Hexchat discord teams Slack)
+declare -a comm=(Thunderbird TelegramDesktop Hexchat discord teams Slack "Microsoft Teams - Preview")
 for i in ${comm[@]}; do
   bspc rule -a $i desktop='^4' follow=on focus=on; done
 
 ## 5 > office and docs (always open office/doc apps on workspace-5)
 declare -a office=(Gucharmap Atril Evince \
 libreoffice-writer libreoffice-calc libreoffice-impress \
-libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice obsidian)
+libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice obsidian org.gnome.Nautilus)
 for i in ${office[@]}; do
   bspc rule -a $i desktop='^5' follow=on focus=on; done
 
 ## 6 > media (always open media apps on workspace-6)
-declare -a media=(Audacity Music MPlayer Lxmusic Inkscape Gimp-2.10 obs Spotify vlc steam)
+declare -a media=(Audacity Music MPlayer Lxmusic Inkscape Gimp-2.10 obs Spotify vlc steam heroic)
 for i in ${media[@]}; do
   bspc rule -a $i desktop='^6' follow=on focus=on; done
 
