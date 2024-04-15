@@ -100,7 +100,7 @@ bspc rule -r *:*
 #bspc rule -a Xfce4-terminal desktop='^1' follow=on focus=on
 
 ## 1 > code (always open editors on workspace-1)
-declare -a code=(code-oss jetbrains-webstorm jetbrains-phpstorm jetbrains-clion jetbrains-pycharm jetbrains-idea jetbrains-fleet)
+declare -a code=(code-oss) #jetbrains-webstorm jetbrains-phpstorm jetbrains-clion jetbrains-pycharm jetbrains-idea jetbrains-fleet jetbrains-clion-nova jetbrains-datagrip)
 for i in ${code[@]}; do
   bspc rule -a $i desktop='^1' follow=on focus=on; done
 
