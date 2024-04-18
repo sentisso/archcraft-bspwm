@@ -107,9 +107,9 @@ super + Escape
 ctrl + alt + {Left,Right}
 	bspc desktop -f {prev.local,next.local}
 
-# Switch workspace or Send focused Node to another workspace
+# Switch to specific desktop on the focused monitor or send focused node to another desktop
 super + {_,shift + }{1-8}
-	bspc {desktop -f,node -d} '^{1-8}' '--follow'
+	bspc {desktop -f,node -d} 'focused:^{1-8}' '--follow'
 
 # Send focused Node to workspace directionally
 super + ctrl + shift + {Left,Right}
@@ -136,8 +136,8 @@ super + {h,v,q}
 	bspc node -p {east,south,cancel}
 
 # Preselect the ratio
-super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
+#super + ctrl + {1-9}
+#	bspc node -o 0.{1-9}
 
 # Toggle Layout (Tiled/Monocle)
 super + l

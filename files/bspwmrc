@@ -32,18 +32,22 @@ BSPWM_SRATIO='0.50'
 ## Configurations --------------------------------------------#
 
 ## Manage Monitors and Workspaces
+INTERNAL_MONITOR="eDP-1"
+EXTERNAL_MONITOR="HDMI-1"
+EXTERNAL_MONITOR_2="DP-1-0.1"
+
 default_workspaces() {
   for monitor in `xrandr -q | grep -w 'connected' | cut -d' ' -f1`; do
-    bspc monitor "$monitor" -d 'code' 'cmd' 'www' 'comm' 'docs' 'play' 'fs' 'sys'
+    bspc monitor "%$monitor" -d 'code' 'cmd' 'www' 'comm' 'docs' 'play' 'fs' 'sys'
   done
+
+  bspc wm -O "$EXTERNAL_MONITOR" "$INTERNAL_MONITOR" "$EXTERNAL_MONITOR_2"
 }
 
 ## Two Monitors Setup (Laptop and external monitor, set 4 workspaces on each monitor)
 two_monitors_workspaces() {
   # change these values according to your system
   # you can use `xrandr -q` to get the names of monitors
-  INTERNAL_MONITOR="eDP-1"
-  EXTERNAL_MONITOR="HDMI-A-0"
   if [[ $(xrandr -q | grep "${EXTERNAL_MONITOR} connected") ]]; then
     bspc monitor "$EXTERNAL_MONITOR" -d '' '' '' ''
     bspc monitor "$INTERNAL_MONITOR" -d '' '' '' ''
