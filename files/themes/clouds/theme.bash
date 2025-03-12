@@ -69,9 +69,9 @@ picom_shadow_r='14'
 picom_shadow_o='0.30'
 picom_shadow_x='-12'
 picom_shadow_y='-12'
-picom_blur_method='none'
-picom_blur_strength='0'
-picom_blur='false'
+picom_blur_method='dual_kawase'
+picom_blur_strength='16'
+picom_blur='true'
 
 # Bspwm
 bspwm_fbc="$accent"

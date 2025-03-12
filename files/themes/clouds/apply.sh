@@ -21,11 +21,10 @@ PATH_TERM="$PATH_BSPWM/alacritty"
 PATH_PBAR="$PATH_BSPWM/themes/$THEME/polybar"
 PATH_ROFI="$PATH_BSPWM/themes/$THEME/rofi"
 PATH_XFCE="$PATH_CONF/xfce4/terminal"
-PATH_CONKY="$PATH_BSPWM/themes/$THEME/conky"
 
 ## Wallpaper ---------------------------------
 apply_wallpaper() {
-	feh --bg-center --image-bg black "$wallpaper"
+	feh --bg-fill --image-bg black "$wallpaper"
 }
 
 ## Polybar -----------------------------------
@@ -40,7 +39,6 @@ apply_polybar() {
 	cat > ${PATH_PBAR}/colors.ini <<- EOF
 		[color]
 		
-		BACKGROUND = #000000
 		FOREGROUND = ${foreground}
 		ALTBACKGROUND = ${altbackground}
 		ALTFOREGROUND = ${altforeground}
@@ -49,15 +47,7 @@ apply_polybar() {
 		BLACK = ${color_black}
 		RED = ${color_red}
 		GREEN = ${color_green}
-		YELLOW = ${color_yellow}
-		BLUE = ${color_blue}
-		MAGENTA = ${color_magenta}
-		CYAN = ${color_cyan}
-		WHITE = ${color_white}
-		ALTBLACK = ${altcolor_black}
-		ALTRED = ${altcolor_red}
-		ALTGREEN = ${altcolor_green}
-		ALTYELLOW = ${altcolor_yellow}
+		YELLOW = ${color_yellow}:color_yellow}
 		ALTBLUE = ${altcolor_blue}
 		ALTMAGENTA = ${altcolor_magenta}
 		ALTCYAN = ${altcolor_cyan}
@@ -245,8 +235,12 @@ apply_compositor() {
 		-e "s/shadow-opacity = .*/shadow-opacity = $picom_shadow_o;/g" \
 		-e "s/shadow-offset-x = .*/shadow-offset-x = $picom_shadow_x;/g" \
 		-e "s/shadow-offset-y = .*/shadow-offset-y = $picom_shadow_y;/g" \
-		-e "s/method = .*/method = \"$picom_blur_method\";/g" \
-		-e "s/strength = .*/strength = $picom_blur_strength;/g"
+		-e "s/blur-background = .*/blur-background = $picom_blur;/g" \
+		-e "s/blur-method = .*/blur-method = \"$picom_blur_method\";/g" \
+		-e "s/blur-strength = .*/blur-strength = $picom_blur_strength;/g" \
+		-e "s/blur-background-frame = .*/blur-background-frame = $picom_blur;/g" \
+		-e "s/blur-background-fixed = .*/blur-background-fixed = $picom_blur;/g"
+
 }
 
 # BSPWM -------------------------------------
@@ -260,7 +254,7 @@ apply_bspwm() {
 		-e "s/BSPWM_BORDER=.*/BSPWM_BORDER='$bspwm_border'/g" \
 		-e "s/BSPWM_GAP=.*/BSPWM_GAP='$bspwm_gap'/g" \
 		-e "s/BSPWM_SRATIO=.*/BSPWM_SRATIO='$bspwm_sratio'/g" \
-		-e "s/USE_CONKY=.*/USE_CONKY='true'/g"
+		-e "s/USE_CONKY=.*/USE_CONKY='false'/g"
 	
 	# reload bspwm
 	bspc wm -r
@@ -282,9 +276,7 @@ notify_user() {
 
 # Conky -------------------------------------
 apply_conky() {
-	cp -r "${PATH_CONKY}" "${PATH_CONF}"
 	pkill conky
-	conky --daemonize
 }
 
 ## Execute Script ---------------------------
