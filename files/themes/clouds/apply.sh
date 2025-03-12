@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## Copyright (C) 2020-2023 Aditya Shakya <adi1090x@gmail.com>
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
 ##
 ## Script To Apply Themes
 
@@ -38,7 +38,7 @@ apply_polybar() {
 	# rewrite colors file
 	cat > ${PATH_PBAR}/colors.ini <<- EOF
 		[color]
-		
+
 		FOREGROUND = ${foreground}
 		ALTBACKGROUND = ${altbackground}
 		ALTFOREGROUND = ${altforeground}
@@ -57,6 +57,13 @@ apply_polybar() {
 
 # Rofi --------------------------------------
 apply_rofi() {
+	border_color="`pastel color $accent | pastel format rgb-float | tr -d '[:alpha:]','(',')' | sed 's/ /,/g'`"
+
+	# modify screenshots scripts
+	sed -i -e "s/border=.*/border='$border_color'/g" \
+		${PATH_BSPWM}/scripts/rofi_screenshot \
+		${PATH_BSPWM}/scripts/bspscreenshot
+
 	# modify rofi scripts
 	sed -i -e "s/STYLE=.*/STYLE=\"$THEME\"/g" \
 		${PATH_BSPWM}/scripts/rofi_askpass \
@@ -100,42 +107,40 @@ apply_netmenu() {
 
 # Terminal ----------------------------------
 apply_terminal() {
-	# alacritty : fonts
-	sed -i ${PATH_TERM}/fonts.yml \
-		-e "s/family: .*/family: \"$terminal_font_name\"/g" \
-		-e "s/size: .*/size: $terminal_font_size/g"
+	if [[ -f "$PATH_TERM/fonts.toml" && -f "$PATH_TERM/colors.toml" ]]; then
+		# alacritty : fonts
+		sed -i ${PATH_TERM}/fonts.toml \
+			-e "s/family = .*/family = \"$terminal_font_name\"/g" \
+			-e "s/size = .*/size = $terminal_font_size/g"
 
-	# alacritty : colors
-	cat > ${PATH_TERM}/colors.yml <<- _EOF_
-		## Colors configuration
-		colors:
-		  # Default colors
-		  primary:
-		    background: '${background}'
-		    foreground: '${foreground}'
+		# alacritty : colors
+		cat > ${PATH_TERM}/colors.toml <<- _EOF_
+			## Colors configuration
+			[colors.primary]
+			background = "${background}"
+			foreground = "${foreground}"
 
-		  # Normal colors
-		  normal:
-		    black:   '${color_black}'
-		    red:     '${color_red}'
-		    green:   '${color_green}'
-		    yellow:  '${color_yellow}'
-		    blue:    '${color_blue}'
-		    magenta: '${color_magenta}'
-		    cyan:    '${color_cyan}'
-		    white:   '${color_white}'
+			[colors.normal]
+			black   = "${color_black}"
+			red     = "${color_red}"
+			green   = "${color_green}"
+			yellow  = "${color_yellow}"
+			blue    = "${color_blue}"
+			magenta = "${color_magenta}"
+			cyan    = "${color_cyan}"
+			white   = "${color_white}"
 
-		  # Bright colors
-		  bright:
-		    black:   '${altcolor_black}'
-		    red:     '${altcolor_red}'
-		    green:   '${altcolor_green}'
-		    yellow:  '${altcolor_yellow}'
-		    blue:    '${altcolor_blue}'
-		    magenta: '${altcolor_magenta}'
-		    cyan:    '${altcolor_cyan}'
-		    white:   '${altcolor_white}'
-	_EOF_
+			[colors.bright]
+			black   = "${color_black}"
+			red     = "${color_red}"
+			green   = "${color_green}"
+			yellow  = "${color_yellow}"
+			blue    = "${color_blue}"
+			magenta = "${color_magenta}"
+			cyan    = "${color_cyan}"
+			white   = "${color_white}"
+		_EOF_
+	fi
 
 	cp ${PATH_TERM}/alacritty.yml ${PATH_CONF}/alacritty/alacritty.yml
 
@@ -230,7 +235,7 @@ apply_compositor() {
 	# modify picom config
 	sed -i "$picom_cfg" \
 		-e "s/backend = .*/backend = \"$picom_backend\";/g" \
-		-e "s/corner-radius = .*/corner-radius = $picom_corner;/g" \
+		-e "/#-cr-start/,/#-cr-end/c\#-cr-start\ncorner-radius = $picom_corner;\n#-cr-end" \
 		-e "s/shadow-radius = .*/shadow-radius = $picom_shadow_r;/g" \
 		-e "s/shadow-opacity = .*/shadow-opacity = $picom_shadow_o;/g" \
 		-e "s/shadow-offset-x = .*/shadow-offset-x = $picom_shadow_x;/g" \

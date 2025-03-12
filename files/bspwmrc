@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## Copyright (C) 2020-2023 sentisso
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
 ##
 ## BSPWM config file for Archcraft
 
@@ -11,6 +11,7 @@ BSPDIR="$HOME/.config/bspwm"
 
 ## Export bspwm/bin dir to PATH
 export PATH="${PATH}:$BSPDIR/scripts"
+export XDG_CURRENT_DESKTOP='bspwm'
 
 ## Run java applications without issues
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -98,7 +99,7 @@ bspc wm --adopt-orphans
 
 ## Window rules ----------------------------------------------#
 
-# remove all rules first
+## remove all rules first
 bspc rule -r *:*
 
 ## 1 > terminal (always open terminal on workspace-1)
@@ -127,10 +128,10 @@ libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice obsidian 
 for i in ${office[@]}; do
   bspc rule -a $i desktop='^5' follow=on focus=on; done
 
-## 6 > media (always open media apps on workspace-6)
-declare -a media=(Audacity Music MPlayer Lxmusic Inkscape Gimp-2.10 obs Spotify vlc steam heroic)
-for i in ${media[@]}; do
-  bspc rule -a $i desktop='^6' follow=on focus=on; done
+## 6 > communication (always open communication apps on workspace-6)
+declare -a comm=(Thunderbird TelegramDesktop Hexchat)
+for i in ${comm[@]}; do
+   bspc rule -a $i desktop='^6' follow=on focus=on; done
 
 ## 7 > files (always open file manager on workspace-7)
 declare -a files=(Pcmanfm Thunar qBittorrent)

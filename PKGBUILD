@@ -1,8 +1,8 @@
 # Maintainer: Aditya Shakya <adi1090x@gmail.com>
 
 pkgname=archcraft-bspwm
-pkgver=5.0
-pkgrel=1
+pkgver=6.0
+pkgrel=7
 pkgdesc="Bspwm Configurations for Archcraft"
 arch=('any')
 url="https://github.com/sentisso/archcraft-bspwm"
@@ -12,6 +12,7 @@ depends=('bspwm' 'sxhkd' 'feh' 'xsettingsd'
 		'pastel' 'python-pywal' 'conky'
 )
 optdepends=('alacritty: default terminal emulator'
+			'kitty: secondary terminal emulator'
 			'thunar: default file manager'
 			'geany: default text editor'
 			'firefox: default web browser'
@@ -50,6 +51,7 @@ package() {
 
 	# Copy window manager configs
 	cp -r "$srcdir"/alacritty 				"$_wmdir"
+	cp -r "$srcdir"/kitty 					"$_wmdir"
 	cp -r "$srcdir"/scripts 				"$_wmdir"
 	cp -r "$srcdir"/themes 					"$_wmdir"
 

@@ -24,10 +24,15 @@ skel_dir='/etc/skel/.config'
 wm_config='bspwm'
 wm_name='Bspwm'
 current_config="$config_dir/$wm_config"
-updated_config="$config_dir/${wm_config}_pacnew_`date +%d-%m-%y`"
-backup_config="$config_dir/${wm_config}_backup_`date +%d-%m-%y`"
+updated_config="$config_dir/${wm_config}_pacnew_`date +%Y-%m-%d`"
+backup_config="$config_dir/${wm_config}_backup_`date +%Y-%m-%d`"
 
 ## -----------------------------------
+
+## Copy terminal config in /root
+copy_term_cfg_root() {
+	mkdir -p /root/.config/${wm_config} && cp -rf "$skel_dir/$wm_config/alacritty" $_
+}
 
 ## Install Config files
 install_wm_config() {
@@ -76,23 +81,23 @@ backup_wm_config() {
 
 ## Main
 run_main() {
-	if [[ "$user_group" == 'liveuser' ]]; then
-		exit
-	else
+	if [[ "$user_group" != 'liveuser' ]]; then
 		if [[ ! -d "$current_config"  ]]; then
-			install_wm_config
-		else
 			backup_wm_config
 			install_wm_config
+		else
+			update_wm_config
 		fi
 	fi
 }
 
 post_install() {
+	copy_term_cfg_root
 	run_main
 }
 
 post_upgrade() {
+	copy_term_cfg_root
 	run_main
 }
 
