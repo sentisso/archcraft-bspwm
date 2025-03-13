@@ -142,8 +142,6 @@ apply_terminal() {
 		_EOF_
 	fi
 
-	cp ${PATH_TERM}/alacritty.yml ${PATH_CONF}/alacritty/alacritty.yml
-
 	# xfce terminal : fonts & colors
 	sed -i ${PATH_XFCE}/terminalrc \
 		-e "s/FontName=.*/FontName=$terminal_font_name $terminal_font_size/g" \

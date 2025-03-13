@@ -141,8 +141,8 @@ apply_terminal() {
 			white   = "${color_white}"
 
 			[colors.bright]
-			black   = "${altcolo_black}"
-			red     = "${altcolo_red}"
+			black   = "${altcolor_black}"
+			red     = "${altcolor_red}"
 			green   = "${altcolor_green}"
 			yellow  = "${altcolor_yellow}"
 			blue    = "${altcolor_blue}"
@@ -151,8 +151,6 @@ apply_terminal() {
 			white   = "${altcolor_white}"
 		_EOF_
 	fi
-
-	cp ${PATH_TERM}/alacritty.yml ${PATH_CONF}/alacritty/alacritty.yml
 
 	# xfce terminal : fonts & colors
 	sed -i ${PATH_XFCE}/terminalrc \

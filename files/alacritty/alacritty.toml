@@ -9,11 +9,6 @@
 ## Import additional configuration files.
 import = ["/home/asd/.config/bspwm/alacritty/colors.toml", "/home/asd/.config/bspwm/alacritty/fonts.toml"]
 
-## You can set shell.program to the path of your favorite shell, e.g. /bin/zsh.
-## Entries in shell.args are passed as arguments to the shell.
-[shell]
-program = "/bin/fish"
-
 ## Directory the shell is started in. When this is unset, or "None",
 ## the working directory of the parent process will be used.
 #working_directory = "None"
@@ -23,6 +18,12 @@ live_config_reload = true
 
 ## Offer IPC using alacritty msg
 ipc_socket = true
+
+## TERMINAL ----------------------------------------------------
+[terminal]
+## You can set shell.program to the path of your favorite shell, e.g. /bin/zsh.
+## Entries in shell.args are passed as arguments to the shell.
+shell = { program = "/bin/fish" }
 
 ## ENVIRONMENT ----------------------------------------------------
 
@@ -41,8 +42,6 @@ opacity = 0.95
 blur = false
 startup_mode = "Windowed"
 dynamic_title = true
-history = 10000
-multiplier = 3
 class = { instance = "Alacritty", general = "Alacritty" }
 decorations_theme_variant = "None"
 

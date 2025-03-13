@@ -54,14 +54,14 @@ install_wm_config() {
 update_wm_config() {
 	echo -e ${Blue}"\n[*] Copying latest ${BBlue}${wm_name}${Blue} config files into ${BBlue}${config_dir}" ${Color_Off}
 
-	mkdir -p "$updated_config"
-	cp -rf "$skel_dir/$wm_config"/* "$updated_config"/
-	chown -R ${user_name}:${user_group} "$updated_config"
+	rm -rf "$current_config"
+	mkdir -p "$current_config"
+	cp -rf "$skel_dir/$wm_config"/* "$current_config"/
+	chown -R ${user_name}:${user_group} "$current_config"
 
-	if [[ -d "$updated_config" ]]; then
+	if [[ -d "$current_config" ]]; then
 		echo -e ${Green}"[*] Latest configuration files installed successfully!" ${Color_Off}
-		echo -e ${Yellow}"[+] Latest config files are stored in: ${BYellow}${updated_config}${Yellow}" ${Color_Off}
-		echo -e ${Purple}"[*] To use latest config files, rename ${BPurple}${updated_config}${Purple} to ${BPurple}${current_config}${Purple}\n" ${Color_Off}		
+		echo -e ${Yellow}"[+] Latest config files are stored in: ${BYellow}${current_config}${Yellow}" ${Color_Off}
 	else
 		echo -e ${Red}"[!] Failed to install latest configuration files!\n" ${Color_Off}
 	fi
@@ -71,7 +71,8 @@ update_wm_config() {
 backup_wm_config() {
 	echo -e ${Purple}"\n[*] Creating a backup of your current ${BPurple}${wm_name}${Purple} config..." ${Color_Off}
 
-	mv "$current_config" "$backup_config"
+	mkdir -p "$backup_config"
+	cp -r "$current_config" "$backup_config"
 	chown -R ${user_name}:${user_group} "$backup_config"
 
 	echo -e ${Yellow}"[*] Your previous config files are stored in: ${BYellow}${backup_config}${Yellow}, in case you want to use them." ${Color_Off}
@@ -83,9 +84,9 @@ backup_wm_config() {
 run_main() {
 	if [[ "$user_group" != 'liveuser' ]]; then
 		if [[ ! -d "$current_config"  ]]; then
-			backup_wm_config
 			install_wm_config
 		else
+			backup_wm_config
 			update_wm_config
 		fi
 	fi
