@@ -2,7 +2,7 @@
 
 pkgname=archcraft-bspwm
 pkgver=6.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Bspwm Configurations for Archcraft"
 arch=('any')
 url="https://github.com/archcraft-os/archcraft-bspwm"
