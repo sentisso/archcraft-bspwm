@@ -205,8 +205,8 @@ apply_dunst() {
 	# modify dunst config
 	sed -i ${PATH_BSPWM}/dunstrc \
 		-e "s/width = .*/width = $dunst_width/g" \
-		-e "s/height = .*/height = $dunst_height/g" \
-		-e "s/offset = .*/offset = $dunst_offset/g" \
+		-e "s/height = .*/height = (0,$dunst_height)/g" \
+		-e "s/offset = .*/offset = ($dunst_offset)/g" \
 		-e "s/origin = .*/origin = $dunst_origin/g" \
 		-e "s/font = .*/font = $dunst_font/g" \
 		-e "s/frame_width = .*/frame_width = $dunst_border/g" \
@@ -291,6 +291,7 @@ apply_conky() {
 }
 
 ## Execute Script ---------------------------
+apply_dunst
 notify_user
 create_file
 apply_wallpaper
@@ -300,7 +301,6 @@ apply_netmenu
 apply_terminal
 apply_geany
 apply_appearance
-apply_dunst
 apply_compositor
 apply_bspwm
 apply_conky
