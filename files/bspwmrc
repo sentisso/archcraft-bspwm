@@ -194,7 +194,7 @@ xsetroot -cursor_name left_ptr
 bash ~/.fehbg
 
 # Start mpd
-exec mpd &
+mpd &
 
 # Start bspwm scripts
 bspbar

@@ -205,7 +205,8 @@ apply_dunst() {
 	# modify dunst config
 	sed -i ${PATH_BSPWM}/dunstrc \
 		-e "s/width = .*/width = $dunst_width/g" \
-		-e "s/height = .*/height = (0,$dunst_height)/g" \
+		-e "s/^height = .*/height = (0,$dunst_height)/g" \
+		-e "s/bar_height = .*/bar_height = $dunst_height/g" \
 		-e "s/offset = .*/offset = ($dunst_offset)/g" \
 		-e "s/origin = .*/origin = $dunst_origin/g" \
 		-e "s/font = .*/font = $dunst_font/g" \
@@ -292,7 +293,6 @@ apply_conky() {
 
 ## Execute Script ---------------------------
 apply_dunst
-notify_user
 create_file
 apply_wallpaper
 apply_polybar
@@ -304,3 +304,4 @@ apply_appearance
 apply_compositor
 apply_bspwm
 apply_conky
+notify_user

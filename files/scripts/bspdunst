@@ -7,11 +7,11 @@ DIR="$HOME/.config/bspwm"
 
 # Launch dunst daemon
 if [[ `pidof dunst` ]]; then
-	pkill dunst
+	pkill -9 dunst
 fi
 
 if [[ `pidof xfce4-notifyd` ]]; then
-    pkill xfce4-notifyd
+    pkill -9 xfce4-notifyd
 fi
 
 dunst -config "$DIR"/dunstrc &
